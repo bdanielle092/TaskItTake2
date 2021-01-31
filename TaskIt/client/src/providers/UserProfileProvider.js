@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import { Spinner } from "reactstrap";
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/auth";
 
 export const UserProfileContext = createContext();
@@ -8,7 +8,7 @@ export const UserProfileContext = createContext();
 export function UserProfileProvider(props) {
     const apiUrl = "/api/userprofile";
 
-    const userProfile = sessionStorage.getItem("userProfile");
+    const userProfile = localStorage.getItem("userProfile");
     const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
 
     const [isFirebaseReady, setIsFirebaseReady] = useState(false);
@@ -19,28 +19,38 @@ export function UserProfileProvider(props) {
     }, []);
 
     const login = (email, pw) => {
-        return firebase.auth().signInWithEmailAndPassword(email, pw)
+        return firebase
+            .auth()
+            .signInWithEmailAndPassword(email, pw)
             .then((signInResponse) => getUserProfile(signInResponse.user.uid))
             .then((userProfile) => {
-                sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
+                localStorage.setItem("userProfile", JSON.stringify(userProfile));
                 setIsLoggedIn(true);
+                return userProfile;
             });
     };
 
     const logout = () => {
-        return firebase.auth().signOut()
+        return firebase
+            .auth()
+            .signOut()
             .then(() => {
-                sessionStorage.clear()
+                localStorage.clear();
                 setIsLoggedIn(false);
             });
     };
 
     const register = (userProfile, password) => {
-        return firebase.auth().createUserWithEmailAndPassword(userProfile.email, password)
-            .then((createResponse) => saveUser({ ...userProfile, firebaseUserId: createResponse.user.uid }))
+        return firebase
+            .auth()
+            .createUserWithEmailAndPassword(userProfile.email, password)
+            .then((createResponse) =>
+                saveUser({ ...userProfile, firebaseUserId: createResponse.user.uid })
+            )
             .then((savedUserProfile) => {
-                sessionStorage.setItem("userProfile", JSON.stringify(savedUserProfile))
+                localStorage.setItem("userProfile", JSON.stringify(savedUserProfile));
                 setIsLoggedIn(true);
+                return savedUserProfile;
             });
     };
 
@@ -51,9 +61,10 @@ export function UserProfileProvider(props) {
             fetch(`${apiUrl}/${firebaseUserId}`, {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then(resp => resp.json()));
+                    Authorization: `Bearer ${token}`,
+                },
+            }).then((resp) => resp.json())
+        );
     };
 
     const saveUser = (userProfile) => {
@@ -62,17 +73,44 @@ export function UserProfileProvider(props) {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(userProfile)
-            }).then(resp => resp.json()));
+                body: JSON.stringify(userProfile),
+            }).then((resp) => resp.json())
+        );
+    };
+
+    const getCurrentUser = () => {
+        const user = localStorage.getItem("userProfile");
+        if (!user) {
+            return null;
+        }
+        return JSON.parse(user);
+    };
+
+    const isAdmin = () => {
+        const user = getCurrentUser();
+        const adminTypeId = 1;
+        return user !== null && user.userTypeId === adminTypeId;
     };
 
     return (
-        <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken }}>
-            {isFirebaseReady
-                ? props.children
-                : <Spinner className="app-spinner dark" />}
+        <UserProfileContext.Provider
+            value={{
+                isLoggedIn,
+                login,
+                logout,
+                register,
+                getToken,
+                isAdmin,
+                getCurrentUser
+            }}
+        >
+            {isFirebaseReady ? (
+                props.children
+            ) : (
+                    <Spinner className="app-spinner dark" />
+                )}
         </UserProfileContext.Provider>
     );
 }

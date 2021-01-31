@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
-import Login from "../components/Login";
-import Register from "../components/Register";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 
 const ApplicationViews = () => {

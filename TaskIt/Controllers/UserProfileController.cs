@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,79 +9,34 @@ using TaskIt.Repositories;
 
 namespace TaskIt.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class UserProfileController : Controller
+    [Authorize]
+    public class UserProfileController : ControllerBase
     {
-        private readonly IUserProfileRepository _userProfileRepository;
-        public UserProfileController(IUserProfileRepository userProfileRepository)
+        private readonly IUserProfileRepository _repo;
+        public UserProfileController(IUserProfileRepository repo)
         {
-            _userProfileRepository = userProfileRepository;
+            _repo = repo;
         }
-
 
         [HttpGet("{firebaseUserId}")]
-        public IActionResult GetByFirebaseUserId(string firebaseUserId)
+        public IActionResult GetUserProfile(string firebaseUserId)
         {
-            var userProfile = _userProfileRepository.GetByFireBaseUserId(firebaseUserId);
-            if (userProfile == null)
-            {
-                return NotFound();
-            }
-            return Ok(userProfile);
+            return Ok(_repo.GetByFirebaseUserId(firebaseUserId));
         }
 
         [HttpPost]
-        public IActionResult Register(UserProfile userProfile)
+        public IActionResult Post(UserProfile userProfile)
         {
-           
-            _userProfileRepository.Add(userProfile);
+
+            _repo.Add(userProfile);
             return CreatedAtAction(
-                nameof(GetByFirebaseUserId), new { firebaseUserId = userProfile.FirebaseUserId }, userProfile);
-        }
+                nameof(GetUserProfile),
+                new { firebaseUserId = userProfile.FirebaseUserId },
 
-
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(_userProfileRepository.GetAll());
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            var userProfile = _userProfileRepository.GetById(id);
-            if (userProfile == null)
-            {
-                return NotFound();
-            }
-            return Ok(userProfile);
-        }
-
-        [HttpPost]
-        public IActionResult Add(UserProfile userProfile)
-        {
-            _userProfileRepository.Add(userProfile);
-            return CreatedAtAction("GET", new { id = userProfile.Id }, userProfile);
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, UserProfile userProfile)
-        {
-
-            if (id != userProfile.Id)
-            {
-                return BadRequest();
-            }
-            _userProfileRepository.Update(userProfile);
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            _userProfileRepository.Delete(id);
-            return NoContent();
+                userProfile);
         }
     }
 }

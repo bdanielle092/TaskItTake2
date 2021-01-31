@@ -1,17 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
 import { BrowserRouter as Router } from "react-router-dom";
 import ApplicationViews from "./components/ApplicationViews";
 import { UserProfileProvider } from "./providers/UserProfileProvider";
+import Header from "./components/Header";
 
 
 function App() {
   return (
-    <Router>
+    <div className="App">
       <UserProfileProvider>
-        <ApplicationViews />
+        <Router>
+          <ApplicationViews />
+          <Header />
+        </Router>
       </UserProfileProvider>
-    </Router>
+    </div>
   );
 }
 
