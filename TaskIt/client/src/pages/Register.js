@@ -4,6 +4,7 @@ import { Button, Input } from "reactstrap";
 import { Link } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import "./Login.css";
+import { toast } from 'react-toastify';
 
 const Register = () => {
     const { register } = useContext(UserProfileContext);
@@ -18,7 +19,7 @@ const Register = () => {
         e.preventDefault();
 
         if (password !== confirm) {
-            //   toast.error("Passwords do not match");
+            toast.error("Passwords do not match");
             return;
         }
 
@@ -30,12 +31,12 @@ const Register = () => {
         register(profile, password)
             .then((user) => {
                 setLoading(false);
-                // toast.info(`Welcome ${user.displayName}`);
+                toast.info(`Welcome ${user.displayName}`);
                 history.push("/");
             })
             .catch((err) => {
                 setLoading(false);
-                // toast.error("Invalid email");
+                toast.error("Invalid email");
             });
     };
 
