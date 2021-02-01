@@ -10,8 +10,15 @@ import {
     NavItem,
     NavLink,
     NavbarText,
+    DropdownToggle,
+    ButtonDropdown,
+    DropdownMenu,
+    DropdownItem,
+    Button
 } from 'reactstrap';
 import { UserProfileContext } from "../providers/UserProfileProvider";
+import logo from "../images/logo2.png";
+import "./Header.css"
 
 const Header = () => {
     const { logout, isAdmin } = useContext(UserProfileContext);
@@ -31,36 +38,37 @@ const Header = () => {
     return (
         <div>
             <Navbar color="dark" dark expand="md">
+                <img
+                    src={logo}
+                    alt="logo"
+                    width="30"
+                    height="30"
+                    className="mr-1" />
 
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
                         {user ? (
                             <>
+                                <ButtonDropdown isOpen={isOpen} toggle={toggle}>
+                                    <DropdownToggle caret color="warning">
+                                        Board
+                                    </DropdownToggle>
+                                    <DropdownMenu>
+                                        <DropdownItem>New Board</DropdownItem>
+                                        <DropdownItem>Personal</DropdownItem>
+                                        <DropdownItem>Work</DropdownItem>
 
-                                <NavItem>
-                                    <NavLink onClick={logoutAndReturn}>Logout</NavLink>
-                                </NavItem>
+                                    </DropdownMenu>
+                                </ButtonDropdown>
+
                             </>
-                        ) : (
-                                <>
-                                    <NavItem>
-                                        <NavLink to="/login" tag={Link}>
-                                            Login
-                  </NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink to="/register" tag={Link}>
-                                            Register
-                  </NavLink>
-                                    </NavItem>
-                                </>
-                            )}
+                        ) : null}
                     </Nav>
                     {user ? (
-                        <NavbarText className="d-sm-none d-md-block">
-                            Welcome {user.name}
-                        </NavbarText>
+                        <NavItem>
+                            <Button color="warning" onClick={logoutAndReturn}>Logout</Button>{' '}
+                        </NavItem>
                     ) : null}
                 </Collapse>
             </Navbar>
