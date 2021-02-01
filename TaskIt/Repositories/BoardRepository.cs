@@ -19,12 +19,16 @@ namespace TaskIt.Repositories
 
         public List<Board> GetAll()
         {
-            return _context.Board.ToList();
+            return _context.Board
+                .Include(b => b.UserProfile)
+                .ToList();
         }
 
         public Board GetById(int id)
         {
-            return _context.Board.FirstOrDefault(b => b.Id == id);
+            return _context.Board
+                .Include(b => b.UserProfile)
+                .FirstOrDefault(b => b.Id == id);
         }
 
         public List<Board> GetByUserProfileId(int id)

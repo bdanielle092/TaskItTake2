@@ -18,7 +18,7 @@ import {
 } from 'reactstrap';
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import logo from "../images/logo2.png";
-import "./Header.css"
+// import "./Header.css"
 
 const Header = () => {
     const { logout, isAdmin } = useContext(UserProfileContext);
