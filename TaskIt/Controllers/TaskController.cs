@@ -25,12 +25,12 @@ namespace TaskIt.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var post = _taskRepo.GetById(id);
-            if (post == null)
+            var task = _taskRepo.GetById(id);
+            if (task == null)
             {
                 return NotFound();
             }
-            return Ok(post);
+            return Ok(task);
         }
 
         [HttpPost]

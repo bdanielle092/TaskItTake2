@@ -31,7 +31,7 @@ namespace TaskIt.Repositories
 
         public List<Board> GetByUserProfileId(int id)
         {
-            return _context.Board
+            return _context.Board.Include(b => b.UserProfile)
                             .Where(b => b.UserProfileId == id)
                             .ToList();
         }

@@ -33,7 +33,8 @@ namespace TaskIt.Repositories
 
         public List<Task> GetByBoardId(int id)
         {
-            return _context.Task.Include(t => t.Board)
+            return _context.Task
+                            .Include(t => t.Board)
                             .Where(t => t.BoardId == id)
                             .ToList();
         }

@@ -19,6 +19,7 @@ import {
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import logo from "../images/logo2.png";
 import "./Header.css"
+// import BoardForm from "./Board/BoardForm";
 
 const Header = () => {
     const { logout, isAdmin } = useContext(UserProfileContext);
@@ -51,10 +52,10 @@ const Header = () => {
                     {user ? (
                         <>
 
-
+                            {/* 
                             <NavItem >
                                 <Button color="warning" onClick={BoardForm} >New Board</Button>{' '}
-                            </NavItem>
+                            </NavItem> */}
 
                             <NavItem className="logoutButton">
                                 <Button color="warning" onClick={logoutAndReturn}>Logout</Button>{' '}
