@@ -1,6 +1,14 @@
-/* .center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 5%;
+.logout {
+    display: flex!important;
+    flex-direction: row!important;
+}
+
+.logoutButton {
+    margin-left: 82em;
+}
+
+@media only screen and (max-width: 600px) {
+    .logoutButton {
+        margin-left: 4em;
+    }
 }

@@ -61,27 +61,17 @@ namespace TaskIt.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Board board  )
         {
-        
+            
             if (id != board.Id)
             {
                 return BadRequest();
             }
-            var currentUser = GetCurrentUserProfile();
-            if (currentUser !=  GetCurrentUserProfile() )
-            {
-                return NotFound();
-            }
+    
             _boardRepo.Update(board);
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            _boardRepo.Delete(id);
-            return NoContent();
-        }
-
+       
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

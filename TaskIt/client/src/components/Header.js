@@ -18,7 +18,7 @@ import {
 } from 'reactstrap';
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import logo from "../images/logo2.png";
-// import "./Header.css"
+import "./Header.css"
 
 const Header = () => {
     const { logout, isAdmin } = useContext(UserProfileContext);
@@ -45,32 +45,29 @@ const Header = () => {
                     height="30"
                     className="mr-1" />
 
-                <NavbarToggler onClick={toggle} />
-                <Collapse isOpen={isOpen} navbar>
-                    <Nav className="mr-auto" navbar>
-                        {user ? (
-                            <>
-                                <ButtonDropdown isOpen={isOpen} toggle={toggle}>
-                                    <DropdownToggle caret color="warning">
-                                        Board
-                                    </DropdownToggle>
-                                    <DropdownMenu>
-                                        <DropdownItem>New Board</DropdownItem>
-                                        <DropdownItem>Personal</DropdownItem>
-                                        <DropdownItem>Work</DropdownItem>
 
-                                    </DropdownMenu>
-                                </ButtonDropdown>
 
-                            </>
-                        ) : null}
-                    </Nav>
+                <Nav className="mr-auto logout" navbar>
                     {user ? (
-                        <NavItem>
-                            <Button color="warning" onClick={logoutAndReturn}>Logout</Button>{' '}
-                        </NavItem>
+                        <>
+                            <ButtonDropdown isOpen={isOpen} toggle={toggle}>
+                                <DropdownToggle caret color="warning">
+                                    Board
+                                    </DropdownToggle>
+                                <DropdownMenu>
+                                    <DropdownItem>New Board</DropdownItem>
+                                    <DropdownItem>Personal</DropdownItem>
+                                    <DropdownItem>Work</DropdownItem>
+
+                                </DropdownMenu>
+                            </ButtonDropdown>
+                            <NavItem className="logoutButton">
+                                <Button color="warning" onClick={logoutAndReturn}>Logout</Button>{' '}
+                            </NavItem>
+                        </>
                     ) : null}
-                </Collapse>
+                </Nav>
+
             </Navbar>
         </div>
     );
