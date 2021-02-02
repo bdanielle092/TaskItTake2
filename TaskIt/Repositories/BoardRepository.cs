@@ -43,19 +43,13 @@ namespace TaskIt.Repositories
             _context.SaveChanges();
         }
 
+
         public void Update(Board board)
         {
             _context.Entry(board).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
-        {
-            var board = GetById(id);
-            _context.Board.Remove(board);
-            _context.SaveChanges();
-        }
-
-
+     
     }
 }

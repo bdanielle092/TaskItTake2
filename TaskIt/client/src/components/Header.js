@@ -50,17 +50,12 @@ const Header = () => {
                 <Nav className="mr-auto logout" navbar>
                     {user ? (
                         <>
-                            <ButtonDropdown isOpen={isOpen} toggle={toggle}>
-                                <DropdownToggle caret color="warning">
-                                    Board
-                                    </DropdownToggle>
-                                <DropdownMenu>
-                                    <DropdownItem>New Board</DropdownItem>
-                                    <DropdownItem>Personal</DropdownItem>
-                                    <DropdownItem>Work</DropdownItem>
 
-                                </DropdownMenu>
-                            </ButtonDropdown>
+
+                            <NavItem >
+                                <Button color="warning" onClick={BoardForm} >New Board</Button>{' '}
+                            </NavItem>
+
                             <NavItem className="logoutButton">
                                 <Button color="warning" onClick={logoutAndReturn}>Logout</Button>{' '}
                             </NavItem>
