@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using TaskIt.Models;
 
 namespace TaskIt.Repositories
 {
@@ -8,6 +8,7 @@ namespace TaskIt.Repositories
   
         List<Task> GetAll();
         Task GetById(int id);
+        List<Task> GetByBoardId(int id);
         void Add(Task task);
         void Update(Task task);
         void Delete(int id);

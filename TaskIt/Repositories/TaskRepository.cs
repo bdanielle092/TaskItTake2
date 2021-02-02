@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using TaskIt.Models;
 using TaskIt.Data;
 
 namespace TaskIt.Repositories
 {
-    public class TaskRepository
+    public class TaskRepository : ITaskRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -18,17 +17,29 @@ namespace TaskIt.Repositories
 
         public List<Task> GetAll()
         {
-            return _context.Task.ToList();
+            return _context.Task
+                .Include(t => t.Board)
+                .Include(t => t.Priority)
+                .ToList();
         }
 
         public Task GetById(int id)
         {
-            return _context.Task.
-                FirstOrDefault(task => task.Id == id);
+            return _context.Task
+                  .Include(t => t.Board)
+                  .Include(t => t.Priority)
+                .FirstOrDefault(task => task.Id == id);
+        }
+
+        public List<Task> GetByBoardId(int id)
+        {
+            return _context.Task.Include(t => t.Board)
+                            .Where(t => t.BoardId == id)
+                            .ToList();
         }
 
 
-        public void add(Task task)
+        public void Add(Task task)
         {
             _context.Add(task);
             _context.SaveChanges();

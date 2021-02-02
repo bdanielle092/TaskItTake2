@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TaskIt.Data;
 using TaskIt.Models;
 
@@ -33,7 +31,7 @@ namespace TaskIt.Repositories
 
         public List<Board> GetByUserProfileId(int id)
         {
-            return _context.Board.Include(b => b.UserProfile)
+            return _context.Board
                             .Where(b => b.UserProfileId == id)
                             .ToList();
         }

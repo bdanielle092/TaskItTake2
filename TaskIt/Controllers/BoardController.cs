@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using TaskIt.Models;
+using TaskIt.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using TaskIt.Data;
-using TaskIt.Models;
-using TaskIt.Repositories;
+
 
 namespace TaskIt.Controllers
 {
@@ -43,11 +43,11 @@ namespace TaskIt.Controllers
             return Ok(board);
         }
 
-        [HttpGet("getbyuser/{id}")]
-        public IActionResult GetByUser(int id)
-        {
-            return Ok(_boardRepo.GetByUserProfileId(id));
-        }
+        //[HttpGet("getbyuser/{id}")]
+        //public IActionResult GetByUser(int id)
+        //{
+        //    return Ok(_boardRepo.GetByUserProfileId(id));
+        //}
 
         [HttpPost]
         public IActionResult Post(Board board)

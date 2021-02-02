@@ -10,7 +10,7 @@ import {
     Input,
     Button,
 } from "reactstrap";
-import { UserProfileContext } from "../providers/UserProfileProvider";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
 
 
 const BoardForm = () => {
@@ -59,7 +59,7 @@ const BoardForm = () => {
                         color="warning "
                         onClick={(e) => {
                             e.preventDefault();
-                            addPost(post);
+                            addBoard(board);
                         }}
                     >
                         SUBMIT
