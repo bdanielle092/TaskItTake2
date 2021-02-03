@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using TaskIt.Models;
 using TaskIt.Repositories;
-
 namespace TaskIt.Controllers
 {
     [Route("api/[controller]")]
@@ -21,29 +20,24 @@ namespace TaskIt.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(_subTaskRepo.GetAll());
-        }
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+        //    return Ok(_subTaskRepo.GetAll());
+        //}
 
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        [HttpGet("{taskid}")]
+        public IActionResult GetById(int taskId)
         {
-            var subTask = _subTaskRepo.GetById(id);
-            if (subTask == null)
+            var subTasks = _subTaskRepo.GetById(taskId);
+            if (subTasks == null)
             {
                 return NotFound();
             }
-            return Ok(subTask);
+            return Ok(subTasks);
         }
 
-        [HttpPost]
-        public IActionResult Post(SubTask subTask)
-        {
-            _subTaskRepo.Add(subTask);
-            return CreatedAtAction("Get", new { id = subTask.Id }, subTask);
-        }
+
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

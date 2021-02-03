@@ -58,5 +58,13 @@ namespace TaskIt.Controllers
             _taskRepo.Delete(id);
             return NoContent();
         }
+
+        [HttpPost("addSubTask")]
+        public IActionResult Post(SubTask subTask)
+        {
+            _taskRepo.Add(subTask);
+            return CreatedAtAction("Get", new { id = subTask.Id }, subTask);
+        }
+
     }
 }

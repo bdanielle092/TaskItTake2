@@ -5,10 +5,11 @@ namespace TaskIt.Repositories
 {
     public interface ISubTaskRepository
     {
-        void Add(SubTask subTask);
-        List<SubTask> GetAll();
-        SubTask GetById(int id);
-        List<SubTask> GetByTaskId(int id);
-        void Delete(int id);
+
+      
+        public List<SubTask> GetById(int taskId);
+
+        SubTask GetSubTaskById(int id);
+        public void Delete(int id);
     }
 }
