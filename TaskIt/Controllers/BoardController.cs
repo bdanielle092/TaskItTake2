@@ -18,10 +18,12 @@ namespace TaskIt.Controllers
     {
         private readonly IBoardRepository _boardRepo;
         private readonly IUserProfileRepository _userProfileRepo;
-        public BoardController( IBoardRepository boardRepo, IUserProfileRepository userProfileRepo)
+        private readonly ITaskRepository _taskRepo;
+        public BoardController( IBoardRepository boardRepo, IUserProfileRepository userProfileRepo, ITaskRepository taskRepo)
         {
             _boardRepo = boardRepo;
             _userProfileRepo = userProfileRepo;
+            _taskRepo = taskRepo;
         }
 
         [HttpGet]
@@ -43,11 +45,7 @@ namespace TaskIt.Controllers
             return Ok(board);
         }
 
-        //[HttpGet("getbyuser/{id}")]
-        //public IActionResult GetByUser(int id)
-        //{
-        //    return Ok(_boardRepo.GetByUserProfileId(id));
-        //}
+   
 
         [HttpPost]
         public IActionResult Post(Board board)
@@ -78,5 +76,68 @@ namespace TaskIt.Controllers
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return _userProfileRepo.GetByFirebaseUserId(firebaseUserId);
         }
+
+
+        [HttpGet("{boardId}/task")]
+        public IActionResult GetTasksForBoard(int boardId)
+        {
+            var task = _taskRepo.GetByBoardId(boardId);
+            if (task == null)
+            {
+                return NotFound();
+            }
+            return Ok(task);
+        }
+
+
+        [HttpPost("{boardId}/task")]
+        public IActionResult Post(int boardId, Task task)
+        {
+           if(task.BoardId != boardId)
+            {
+                return BadRequest();            
+            }
+            task.DateCreated = DateTime.Now;
+            _taskRepo.Add(task);
+            return CreatedAtAction("Get", new { id = task.Id }, task);
+        }
+
+
+
+        [HttpPut("{boardId}/task/{id}")]
+        public IActionResult Put(int boardId, Task task, int id)
+        {
+            if (task.BoardId != boardId)
+            {
+                return BadRequest();
+            }
+            if (id != task.Id)
+            {
+                return BadRequest();
+            }
+
+            _taskRepo.Update(task);
+            return NoContent();
+        }
+
+
+
+        [HttpDelete("{boardId}/task/{id}")]
+        public IActionResult Delete(int boardId, Task task, int id)
+        {
+
+            if (task.BoardId != boardId)
+            {
+                return BadRequest();
+            }
+            if (id != task.Id)
+            {
+                return BadRequest();
+            }
+
+            _taskRepo.Delete(id);
+            return NoContent();
+        }
+
     }
 }

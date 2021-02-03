@@ -20,13 +20,8 @@ namespace TaskIt.Controllers
         }
 
 
-        //[HttpGet]
-        //public IActionResult Get()
-        //{
-        //    return Ok(_subTaskRepo.GetAll());
-        //}
 
-        [HttpGet("{taskid}")]
+        [HttpGet("{taskId}")]
         public IActionResult GetById(int taskId)
         {
             var subTasks = _subTaskRepo.GetById(taskId);

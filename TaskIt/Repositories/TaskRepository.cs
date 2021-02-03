@@ -15,14 +15,7 @@ namespace TaskIt.Repositories
             _context = context;
         }
 
-        public List<Task> GetAll()
-        {
-            return _context.Task
-                .Where(t => t.Active)
-                .Include(t => t.Board)
-                .Include(t => t.Priority)
-                .ToList();
-        }
+       
 
         public Task GetById(int id)
         {
@@ -38,6 +31,8 @@ namespace TaskIt.Repositories
         {
             return _context.Task
                             .Include(t => t.Board)
+                            .Include(t => t.Priority)
+                            .Include(t => t.SubTask)
                             .Where(t => t.BoardId == id)
                             .Where(t => t.Active)
                             .ToList();
@@ -72,6 +67,30 @@ namespace TaskIt.Repositories
             _context.Add(subTask);
             _context.SaveChanges();
         }
+
+
+        //public Notes GetNotesById(int id)
+        //{
+        //    return _context.Notes
+        //        .FirstOrDefault(n => n.Id == id);
+        //}
+
+        //public void Add(Notes Notes)
+        //{
+        //    _context.Add(Notes);
+        //    _context.SaveChanges();
+        //}
+        //public void Delete(int id)
+        //{
+        //    var notes = GetNoteById(id);
+        //    notes.Active = false;
+        //    _context.Entry(notes).State = EntityState.Modified;
+        //    _context.SaveChanges();
+        //}
+
+
+
+
 
     }
 }
