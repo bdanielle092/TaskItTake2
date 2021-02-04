@@ -34,6 +34,21 @@ namespace TaskIt.Repositories
                 .FirstOrDefault(st => st.Id == id);
         }
 
+        public void Add(SubTask subTask)
+        {
+            subTask.Active = true;
+            _context.Add(subTask);
+            _context.SaveChanges();
+        }
+
+        public void Update(SubTask subTask)
+        {
+            subTask.Active = true;
+            _context.Entry(subTask).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+
 
         public void Delete(int id)
         {

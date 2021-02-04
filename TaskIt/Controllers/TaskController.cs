@@ -20,12 +20,7 @@ namespace TaskIt.Controllers
      
 
 
-        [HttpPost("addSubTask")]
-        public IActionResult Post(SubTask subTask)
-        {
-            _taskRepo.Add(subTask);
-            return CreatedAtAction("Get", new { id = subTask.Id }, subTask);
-        }
+       
 
     }
 }
