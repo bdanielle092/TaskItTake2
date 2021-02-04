@@ -9,6 +9,9 @@ export function BoardProvider(props) {
 
     const [board, setBoard] = useState([]);
 
+
+
+
     const refreshBoard = () =>
         getToken().then((token) =>
             fetch(apiUrl, {
@@ -17,6 +20,7 @@ export function BoardProvider(props) {
                     Authorization: `Bearer ${token}`
                 }
             }).then(resp => resp.json())
+
                 .then(setBoard));
 
 

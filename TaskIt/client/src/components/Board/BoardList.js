@@ -1,10 +1,13 @@
 import React from "react";
+import Board from "./Board";
 
 const BoardList = ({ boards }) => {
     return (
         <div>
             {boards.map((board) => (
-                <Board key={board.id} board={board} />
+                <div key={board.id} >
+
+                </div>
             ))}
         </div>
     )
