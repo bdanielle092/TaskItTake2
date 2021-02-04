@@ -10,5 +10,6 @@ namespace TaskIt.Repositories
         Board GetById(int id);
         List<Board> GetByUserProfileId(int id);
         void Update(Board board);
+        public void Delete(int id);
     }
 }

@@ -19,6 +19,7 @@ namespace TaskIt.Repositories
         {
             return _context.Board
                 .Include(b => b.UserProfile)
+                .Where(b => b.Active)
                 .ToList();
         }
 
@@ -26,6 +27,7 @@ namespace TaskIt.Repositories
         {
             return _context.Board
                 .Include(b => b.UserProfile)
+                .Where(b => b.Active)
                 .FirstOrDefault(b => b.Id == id);
         }
 
@@ -33,10 +35,12 @@ namespace TaskIt.Repositories
         {
             return _context.Board.Include(b => b.UserProfile)
                             .Where(b => b.UserProfileId == id)
+                            .Where(b => b.Active)
                             .ToList();
         }
         public void Add(Board board)
         {
+            board.Active = true;
             _context.Add(board);
             _context.SaveChanges();
         }
@@ -44,10 +48,19 @@ namespace TaskIt.Repositories
 
         public void Update(Board board)
         {
+            board.Active = true;
             _context.Entry(board).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
-     
+        public void Delete(int id)
+        {
+            var board = GetById(id);
+            board.Active = false;
+            _context.Entry(board).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+
     }
 }
