@@ -12,6 +12,6 @@ namespace TaskIt.Repositories
         void Add(Task task);
         void Update(Task task);
         void Delete(int id);
-        void Add(SubTask subTask);
+       
     }
 }

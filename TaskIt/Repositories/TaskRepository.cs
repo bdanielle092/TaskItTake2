@@ -61,36 +61,6 @@ namespace TaskIt.Repositories
             _context.SaveChanges();
         }
 
-        public void Add(SubTask subTask)
-        {
-            subTask.Active = true;
-            _context.Add(subTask);
-            _context.SaveChanges();
-        }
-
-
-        //public Notes GetNotesById(int id)
-        //{
-        //    return _context.Notes
-        //        .FirstOrDefault(n => n.Id == id);
-        //}
-
-        //public void Add(Notes Notes)
-        //{
-        //    _context.Add(Notes);
-        //    _context.SaveChanges();
-        //}
-        //public void Delete(int id)
-        //{
-        //    var notes = GetNoteById(id);
-        //    notes.Active = false;
-        //    _context.Entry(notes).State = EntityState.Modified;
-        //    _context.SaveChanges();
-        //}
-
-
-
-
-
+        
     }
 }
