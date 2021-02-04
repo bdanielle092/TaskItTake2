@@ -27,9 +27,9 @@
 
 	SET IDENTITY_INSERT [Task] ON
 	INSERT INTO [Task]
-	 ([Id], [Name], [Notes], [SubTask], [PriorityID], [IsComplete], [DateCreated], [BoardId])
+	 ([Id], [Name], [Notes], [PriorityID], [IsComplete], [DateCreated], [BoardId])
 	VALUES
-	 (1, 'Meet with Adam', 'Capstone Approval', 'EDR', 1, 0, '01-23-2020', 2);
+	 (1, 'Meet with Adam', 'Capstone Approval', 1, 0, '01-23-2020', 2);
 	SET IDENTITY_INSERT [Task] OFF
 
 	SET IDENTITY_INSERT [SubTask] ON
@@ -39,4 +39,3 @@
 	 (1, 'ERD', 0, 1);
 	SET IDENTITY_INSERT [SubTask] OFF
 
-  

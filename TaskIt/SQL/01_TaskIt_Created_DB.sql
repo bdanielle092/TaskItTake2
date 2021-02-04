@@ -6,7 +6,7 @@
 
 	USE [TaskIt]
 	GO
-	 
+
 	DROP TABLE IF EXISTS [SubTask];
 	DROP TABLE IF EXISTS [Task];
 	DROP TABLE IF EXISTS [Priority];
@@ -26,7 +26,6 @@
 	 [Id] integer PRIMARY KEY identity NOT NULL,
      [Name] nvarchar (255) NOT NULL,
 	 [Notes] nvarchar(255) NOT NULL,
-     [SubTask] nvarchar(255) NOT NULL,
      [PriorityId] integer  NOT NULL,
      [IsComplete] bit NOT NULL,
      [DateCreated] datetime NOT NULL,
@@ -75,4 +74,3 @@ ALTER TABLE [Task] ADD FOREIGN KEY ([BoardId]) REFERENCES [Board] ([Id])
 
 ALTER TABLE [SubTask] ADD FOREIGN KEY ([TaskId]) REFERENCES [Task] ([Id])
 GO
-

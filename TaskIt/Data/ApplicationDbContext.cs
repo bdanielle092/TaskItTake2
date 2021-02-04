@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-
 
 namespace TaskIt.Data
 {
@@ -15,7 +13,7 @@ namespace TaskIt.Data
         public DbSet<Board> Board { get; set; }
         public DbSet<Priority> Priority { get; set; }
         public DbSet<SubTask> SubTask { get; set; }
-        public DbSet<Models.Task> Task { get; set; }
+        public DbSet<Task> Task { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
 
         

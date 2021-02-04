@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TaskIt.Data;
 using TaskIt.Models;
 
@@ -19,28 +17,38 @@ namespace TaskIt.Repositories
 
         public List<Board> GetAll()
         {
-            return _context.Board.ToList();
+            return _context.Board
+                .Include(b => b.UserProfile)
+                .Where(b => b.Active)
+                .ToList();
         }
 
         public Board GetById(int id)
         {
-            return _context.Board.FirstOrDefault(b => b.Id == id);
+            return _context.Board
+                .Include(b => b.UserProfile)
+                .Where(b => b.Active)
+                .FirstOrDefault(b => b.Id == id);
         }
 
         public List<Board> GetByUserProfileId(int id)
         {
             return _context.Board.Include(b => b.UserProfile)
                             .Where(b => b.UserProfileId == id)
+                            .Where(b => b.Active)
                             .ToList();
         }
         public void Add(Board board)
         {
+            board.Active = true;
             _context.Add(board);
             _context.SaveChanges();
         }
 
+
         public void Update(Board board)
         {
+            board.Active = true;
             _context.Entry(board).State = EntityState.Modified;
             _context.SaveChanges();
         }
@@ -48,8 +56,29 @@ namespace TaskIt.Repositories
         public void Delete(int id)
         {
             var board = GetById(id);
-            _context.Board.Remove(board);
+            board.Active = false;
+            _context.Entry(board).State = EntityState.Modified;
             _context.SaveChanges();
+        }
+
+      public void AddIntialBoards(int userProfileId)
+        {
+            Board board = new Board() {
+                Name = "Personal",
+                UserProfileId = userProfileId,
+                Active = true
+            };
+            Board boardTwo = new Board()
+            {
+                Name = "Work",
+                UserProfileId = userProfileId,
+                Active = true
+            };
+
+            _context.Add(board);
+            _context.Add(boardTwo);
+            _context.SaveChanges();
+
         }
 
 

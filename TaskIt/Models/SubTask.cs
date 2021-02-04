@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace TaskIt.Models
 {
@@ -12,7 +12,10 @@ namespace TaskIt.Models
         [Required]
         public string Name { get; set; }
         public bool IsComplete { get; set; }
-        public int  TaskId { get; set; }
-        public Task Task { get; set;  }
+        public int TaskId { get; set; }
+        public Task Task { get; set; }
+        public bool Active { get; set; }
+
     }
+
 }

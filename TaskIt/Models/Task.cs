@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace TaskIt.Models
 {
@@ -19,5 +19,8 @@ namespace TaskIt.Models
         public DateTime DateCreated { get; set; }
         public int BoardId { get; set; }
         public Board Board { get; set; }
+        public SubTask SubTask { get; set; }
+
+        public bool Active { get; set; }
     }
 }
