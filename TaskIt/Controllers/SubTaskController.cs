@@ -20,7 +20,7 @@ namespace TaskIt.Controllers
         }
 
 
-
+        //https:localhost:5001/api/subTask
         [HttpGet("{taskId}")]
         public IActionResult GetById(int taskId)
         {

@@ -61,6 +61,26 @@ namespace TaskIt.Repositories
             _context.SaveChanges();
         }
 
+      public void AddIntialBoards(int userProfileId)
+        {
+            Board board = new Board() {
+                Name = "Personal",
+                UserProfileId = userProfileId,
+                Active = true
+            };
+            Board boardTwo = new Board()
+            {
+                Name = "Work",
+                UserProfileId = userProfileId,
+                Active = true
+            };
+
+            _context.Add(board);
+            _context.Add(boardTwo);
+            _context.SaveChanges();
+
+        }
+
 
     }
 }

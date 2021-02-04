@@ -7,9 +7,9 @@ namespace TaskIt.Repositories
     {
 
       
-        public List<SubTask> GetById(int taskId);
+        public List<SubTask> GetByTaskId(int taskId);
 
-        SubTask GetSubTaskById(int id);
+        SubTask GetById(int id);
         public void Delete(int id);
     }
 }

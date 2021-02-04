@@ -11,5 +11,6 @@ namespace TaskIt.Repositories
         List<Board> GetByUserProfileId(int id);
         void Update(Board board);
         public void Delete(int id);
+        void AddIntialBoards(int userProfileId);
     }
 }

@@ -19,7 +19,7 @@ namespace TaskIt.Repositories
         }
 
 
-        public List<SubTask> GetById(int taskId)
+        public List<SubTask> GetByTaskId(int taskId)
         {
             return _context.SubTask
                       
@@ -28,7 +28,7 @@ namespace TaskIt.Repositories
                 .ToList();
         }
 
-        public SubTask GetSubTaskById(int id)
+        public SubTask GetById(int id)
         {
             return _context.SubTask
                 .FirstOrDefault(st => st.Id == id);
@@ -37,7 +37,7 @@ namespace TaskIt.Repositories
 
         public void Delete(int id)
         {
-            var subTask = GetSubTaskById(id);
+            var subTask = GetById(id);
             subTask.Active = false;
             _context.Entry(subTask).State = EntityState.Modified;
             _context.SaveChanges();

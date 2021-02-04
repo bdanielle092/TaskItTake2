@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using TaskIt.Models;
 using TaskIt.Repositories;
 
@@ -15,9 +16,11 @@ namespace TaskIt.Controllers
     public class UserProfileController : ControllerBase
     {
         private readonly IUserProfileRepository _repo;
-        public UserProfileController(IUserProfileRepository repo)
+        private readonly IBoardRepository _boardRepo;
+        public UserProfileController(IUserProfileRepository repo, IBoardRepository boardRepo)
         {
             _repo = repo;
+            _boardRepo = boardRepo;
         }
 
         [HttpGet("{firebaseUserId}")]
@@ -31,11 +34,20 @@ namespace TaskIt.Controllers
         {
 
             _repo.Add(userProfile);
-            return CreatedAtAction(
+           CreatedAtAction(
                 nameof(GetUserProfile),
                 new { firebaseUserId = userProfile.FirebaseUserId },
 
                 userProfile);
+            _boardRepo.AddIntialBoards(userProfile.Id);
+            return Ok(userProfile);
+        }
+
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _repo.GetByFirebaseUserId(firebaseUserId);
         }
     }
 }
