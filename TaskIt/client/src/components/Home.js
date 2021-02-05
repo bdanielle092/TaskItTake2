@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { UserProfileContext } from "../providers/UserProfileProvider";
-import { BoardContext } from "../providers/BoardProvider";
-// import Board from "./Board/Board";
 import BoardList from "./Board/BoardList";
 import { Col } from "reactstrap"
 import "./Home.css";
@@ -9,7 +7,6 @@ import "./Home.css";
 
 
 const Home = () => {
-    const { logout, isAdmin } = useContext(UserProfileContext);
     const user = JSON.parse(localStorage.getItem("userProfile"));
     // const { getBoard } = useContext(BoardContext);
     const { getToken } = useContext(UserProfileContext);
@@ -29,7 +26,6 @@ const Home = () => {
             )
             .then((res) => res.json())
             .then((boards) =>
-
 
                 setBoards(boards));
 

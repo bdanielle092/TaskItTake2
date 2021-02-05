@@ -4,7 +4,9 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "./Home";
-// import BoardForm from "./Board/BoardForm";
+import BoardForm from "./Board/BoardForm";
+import Board from "./Board/Board";
+// import BoardEditForm from "./Board/BoardEditForm";
 
 
 
@@ -17,8 +19,16 @@ const ApplicationViews = () => {
                 {isLoggedIn ? <Home /> : <Redirect to="/login" />}
             </Route>
 
-            {/* <Route path="/" exact>
+            <Route path="/Board/:id" exact>
+                {isLoggedIn ? <Board /> : <Redirect to="/login" />}
+            </Route>
+
+            <Route path="/BoardForm" exact>
                 {isLoggedIn ? <BoardForm /> : <Redirect to="/login" />}
+            </Route>
+
+            {/* <Route path="/BoardEditForm" exact>
+                {isLoggedIn ? <BoardEditForm /> : <Redirect to="/login" />}
             </Route> */}
 
 

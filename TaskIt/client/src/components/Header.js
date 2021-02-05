@@ -1,34 +1,25 @@
-import React, { useState, useContext } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import React, { useContext } from 'react';
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
-    Collapse,
     Navbar,
-    NavbarToggler,
-    NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
-    NavbarText,
-    DropdownToggle,
-    ButtonDropdown,
-    DropdownMenu,
-    DropdownItem,
     Button
 } from 'reactstrap';
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import logo from "../images/logo2.png";
 import "./Header.css"
-import BoardForm from "./Board/BoardForm";
+
 
 
 const Header = () => {
-    const { logout, isAdmin } = useContext(UserProfileContext);
+    const { logout } = useContext(UserProfileContext);
     const user = JSON.parse(localStorage.getItem("userProfile"));
     const history = useHistory();
-    const [isOpen, setIsOpen] = useState(false);
 
-    const toggle = () => setIsOpen(!isOpen);
+
+
 
 
     const logoutAndReturn = () => {
@@ -37,6 +28,11 @@ const Header = () => {
             history.push("/login");
         });
     };
+
+    const goToBoardForm = () => {
+        history.push("/BoardForm");
+    }
+
     return (
         <div>
             <Navbar color="dark" dark expand="md">
@@ -53,10 +49,10 @@ const Header = () => {
                     {user ? (
                         <>
 
-                            {/* 
+
                             <NavItem >
-                                <Button color="warning" onClick={BoardForm} >New Board</Button>{' '}
-                            </NavItem> */}
+                                <Button color="warning" onClick={goToBoardForm} >New Board</Button>{' '}
+                            </NavItem>
 
                             <NavItem className="logoutButton">
                                 <Button color="warning" onClick={logoutAndReturn}>Logout</Button>{' '}
