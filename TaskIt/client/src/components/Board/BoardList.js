@@ -4,11 +4,11 @@ import Board from "./Board";
 const BoardList = ({ boards }) => {
     return (
         <div>
-            {boards.map((board) => (
+            {/* {boards.map((board) => (
                 <div key={board.id} >
 
                 </div>
-            ))}
+            ))} */}
         </div>
     )
 }

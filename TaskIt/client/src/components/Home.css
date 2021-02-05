@@ -17,6 +17,7 @@
 }
 
 .tag {
+    display: flex;
     color: #E76f51;
 }
 
@@ -25,8 +26,8 @@
         display: flex;
         margin-left: auto;
         margin-right: 80px;
-        margin-top: 50px;
-        width: 77%;
+        margin-top: 60px;
+        width: 54%;
         color: #FFC107;
         justify-content: center;
     }

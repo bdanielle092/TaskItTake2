@@ -11,28 +11,31 @@ import "./Home.css";
 const Home = () => {
     const { logout, isAdmin } = useContext(UserProfileContext);
     const user = JSON.parse(localStorage.getItem("userProfile"));
-    const { board, refreshBoard } = useContext(UserProfileContext);
-    const { getToken } = useContext(UserProfileContext, BoardContext);
-    const [board, setBoard] = useState();
-
+    // const { getBoard } = useContext(BoardContext);
+    const { getToken } = useContext(UserProfileContext);
+    const [board, setBoard] = useState([])
 
 
 
     useEffect(() => {
-
-        fetch(`/api/board`, {
-            method: 'GET',
-
-        })
+        getToken()
+            .then((token) =>
+                fetch(`/api/board`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+            )
             .then((res) => res.json())
-            .then((board) => {
-                setBoard(board);
-            });
+            .then((board) =>
+
+
+                setBoard(board));
+        console.log(board)
+
 
     }, []);
-    if (!board) {
-        return null;
-    }
 
 
     return (

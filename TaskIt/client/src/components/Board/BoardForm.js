@@ -51,7 +51,7 @@
 //                                 id="name"
 //                                 type="text"
 //                                 name="boardName"
-//                                 onChange={(evt) = handleSubmit(evt)}
+//                                 onChange={(evt) => handleSubmit(evt)}
 //                             />
 //                         </FormGroup>
 //                     </form>
