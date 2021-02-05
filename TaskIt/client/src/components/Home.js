@@ -13,7 +13,7 @@ const Home = () => {
     const user = JSON.parse(localStorage.getItem("userProfile"));
     // const { getBoard } = useContext(BoardContext);
     const { getToken } = useContext(UserProfileContext);
-    const [board, setBoard] = useState([])
+    const [boards, setBoards] = useState([])
 
 
 
@@ -28,11 +28,11 @@ const Home = () => {
                 })
             )
             .then((res) => res.json())
-            .then((board) =>
+            .then((boards) =>
 
 
-                setBoard(board));
-        console.log(board)
+                setBoards(boards));
+
 
 
     }, []);
@@ -46,7 +46,7 @@ const Home = () => {
                 <h1 className="home">Welcome {user.name.split(" ")[0]}!</h1>
                 <p className="home2">Click on a  <strong className="tag">Board</strong> to view tasks</p>
                 <Col>
-                    <BoardList board={board} />
+                    <BoardList boards={boards} />
                 </Col>
             </div>
         </div>
