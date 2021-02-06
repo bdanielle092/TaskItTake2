@@ -1,19 +1,65 @@
-import React from "react";
-import { Card, CardBody } from "reactstrap";
-import { Link } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
+import { useParams, useHistory } from "react-router-dom";
+import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col } from 'reactstrap';
+import "./Board.css";
 
-const Board = ({ board }) => {
+
+
+
+const Board = (props) => {
+    const { getToken } = useContext(UserProfileContext);
+    const { id } = useParams();
+    const history = useHistory();
+    //setting the state of board and then updating the state of board
+    const [board, setBoard] = useState([]);
+
+
+
+    //getting the board by id 
+    useEffect(() => {
+        getToken()
+            .then((token) =>
+
+                (fetch(`/api/board/${id}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                )
+                    .then((res) => res.json())
+                    .then((board) => { setBoard(board) }));
+
+    });
+
+
+    //taking user to the edit form   
+    const goToBoardEditForm = () => {
+        history.push(`/BoardEditForm/${id}`);
+    }
+
+
 
     return (
-        <Card>
-            <CardBody>
+        <div>
+            <h3 className="BoardName">{board.name} Board</h3>
 
-                <Link to={`/board/${board.id}`}>
-                    <strong>{board.name}</strong>
-                </Link>
+            <UncontrolledDropdown>
+                <DropdownToggle caret>
+                    Actions
+                </DropdownToggle>
+                <DropdownMenu>
+                    <DropdownItem onClick={goToBoardEditForm}>Edit {board.name} Board</DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>Delete {board.name} Board</DropdownItem>
+                </DropdownMenu>
+            </UncontrolledDropdown>
 
-            </CardBody>
-        </Card>
+
+
+        </div>
+
     )
 }
 export default Board

@@ -5,6 +5,10 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "./Home";
 import BoardForm from "./Board/BoardForm";
+import Board from "./Board/Board";
+import BoardEditForm from "./Board/BoardEditForm";
+
+
 
 
 const ApplicationViews = () => {
@@ -15,12 +19,27 @@ const ApplicationViews = () => {
             <Route path="/" exact>
                 {isLoggedIn ? <Home /> : <Redirect to="/login" />}
             </Route>
-            {/* <Route path="/" exact>
+
+            <Route path="/Board/:id" exact>
+                {isLoggedIn ? <Board /> : <Redirect to="/login" />}
+            </Route>
+
+            <Route path="/BoardForm" exact>
                 {isLoggedIn ? <BoardForm /> : <Redirect to="/login" />}
-            </Route> */}
+            </Route>
+
+            <Route path="/BoardEditForm/:id" exact>
+                {isLoggedIn ? <BoardEditForm /> : <Redirect to="/login" />}
+            </Route>
+
+
+
+
+
             <Route path="/login">
                 <Login />
             </Route>
+
             <Route path="/register">
                 <Register />
             </Route>
