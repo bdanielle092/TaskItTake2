@@ -34,9 +34,7 @@ const Header = () => {
     }
 
 
-    const goToHome = () => {
-        history.push(`/`);
-    }
+
 
     return (
         <div>
