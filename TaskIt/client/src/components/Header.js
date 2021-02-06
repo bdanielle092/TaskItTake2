@@ -21,7 +21,7 @@ const Header = () => {
 
 
 
-
+    //allow the user to logout
     const logoutAndReturn = () => {
         return logout().then(() => {
             toast.dark("You are now logged out");
@@ -29,6 +29,7 @@ const Header = () => {
         });
     };
 
+    //taking the user to the board form 
     const goToBoardForm = () => {
         history.push("/BoardForm");
     }

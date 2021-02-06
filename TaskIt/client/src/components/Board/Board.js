@@ -3,8 +3,7 @@ import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { useParams, useHistory } from "react-router-dom";
 import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col } from 'reactstrap';
 import "./Board.css";
-import TaskList from "../Task/TaskList";
-import Task from "../Task/Task";
+
 
 
 
@@ -12,23 +11,23 @@ const Board = (props) => {
     const { getToken } = useContext(UserProfileContext);
     const { id } = useParams();
     const history = useHistory();
+    //setting the state of board and then updating the state of board
     const [board, setBoard] = useState([]);
-    const [tasks, setTasks] = useState([]);
-    // const [task, setTask] = useState();
+
+
 
     //getting the board by id 
     useEffect(() => {
         getToken()
             .then((token) =>
-                console.log("boardTwo", board)
-                    .then(fetch(`/api/board/${id}`, {
-                        method: "GET",
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    })
-                    )
-                    .then(console.log("res", res))
+
+                (fetch(`/api/board/${id}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                )
                     .then((res) => res.json())
                     .then((board) => { setBoard(board) }));
 
@@ -40,27 +39,7 @@ const Board = (props) => {
         history.push(`/BoardEditForm/${id}`);
     }
 
-    //getting the task
-    useEffect(() => {
-        getToken()
-            .then((token) =>
-                console.log("board", board)
-                    .then(fetch(`/api/board/${board.Id}/task`, {
-                        method: "GET",
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    })
-                    )
-                    .then((res) => res.json())
-                    .then((tasks) =>
 
-                        setTasks(tasks)));
-        console.log("tasks", tasks)
-
-
-
-    }, []);
 
     return (
         <div>
@@ -77,9 +56,7 @@ const Board = (props) => {
                 </DropdownMenu>
             </UncontrolledDropdown>
 
-            {/* <Col className="listOfTasks">
-                <TaskList tasks={tasks} />
-            </Col> */}
+
 
         </div>
 

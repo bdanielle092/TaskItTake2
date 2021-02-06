@@ -18,13 +18,14 @@ const BoardForm = () => {
     const { getToken } = useContext(UserProfileContext);
     const history = useHistory();
 
-
+    //this is updating the board and setting it as the new board 
     const handleSubmit = (evt) => {
         const newBoard = { ...board };
         newBoard[evt.target.name] = evt.target.value;
         setBoard(newBoard);
     };
 
+    //this is creating the new board in the database then taking us back to home 
     const createNewBoard = (newBoard) => {
         getToken()
             .then((token) =>

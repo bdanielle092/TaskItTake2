@@ -8,12 +8,11 @@ import "./Home.css";
 
 const Home = () => {
     const user = JSON.parse(localStorage.getItem("userProfile"));
-    // const { getBoard } = useContext(BoardContext);
     const { getToken } = useContext(UserProfileContext);
     const [boards, setBoards] = useState([])
 
 
-    //getting the boards
+    //getting the all the boards for this user
     useEffect(() => {
         getToken()
             .then((token) =>
@@ -28,9 +27,6 @@ const Home = () => {
             .then((boards) =>
 
                 setBoards(boards));
-        console.log("boards", boards)
-
-
 
     }, []);
 
