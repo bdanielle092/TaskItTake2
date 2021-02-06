@@ -33,15 +33,22 @@ const Header = () => {
         history.push("/BoardForm");
     }
 
+
+    const goToHome = () => {
+        history.push(`/`);
+    }
+
     return (
         <div>
             <Navbar color="dark" dark expand="md">
-                <img
+                <a href="/"><img
                     src={logo}
                     alt="logo"
                     width="30"
                     height="30"
-                    className="mr-1" />
+                    className="mr-1"
+                />
+                </a>
 
 
 

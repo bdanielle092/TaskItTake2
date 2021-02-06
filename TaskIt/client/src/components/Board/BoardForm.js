@@ -26,7 +26,6 @@ const BoardForm = () => {
     };
 
     const createNewBoard = (newBoard) => {
-        console.log(newBoard)
         getToken()
             .then((token) =>
                 fetch("/api/board", {
