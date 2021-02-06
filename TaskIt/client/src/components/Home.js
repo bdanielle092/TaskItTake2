@@ -13,7 +13,7 @@ const Home = () => {
     const [boards, setBoards] = useState([])
 
 
-
+    //getting the boards
     useEffect(() => {
         getToken()
             .then((token) =>
@@ -28,6 +28,7 @@ const Home = () => {
             .then((boards) =>
 
                 setBoards(boards));
+        console.log("boards", boards)
 
 
 
