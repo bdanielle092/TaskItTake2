@@ -16,22 +16,8 @@ const Board = (props) => {
 
 
 
-    //getting the board by id 
-    useEffect(() => {
-        getToken()
-            .then((token) =>
 
-                (fetch(`/api/board/${id}`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                })
-                )
-                    .then((res) => res.json())
-                    .then((board) => { setBoard(board) }));
 
-    });
 
 
     //taking user to the edit form   

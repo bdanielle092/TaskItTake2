@@ -39,10 +39,6 @@ namespace TaskIt.Controllers
         public IActionResult Get(int id)
         { 
            
-            //if ()
-            //{
-            //    return Unauthorized();
-            //}
             var board = _boardRepo.GetById(id);
             if (board == null)
             {
